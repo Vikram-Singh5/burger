@@ -11,9 +11,9 @@ import axios from '../../axios-order';
 
 const INGREDIENT_PRICES = {
     salad: 10,
-    cheese: 15,
-    meat: 20,
-    bacon: 12
+    cheese: 8,
+    meat: 12,
+    bacon: 7
 };
 
 class BurgerBuilder extends Component {
@@ -23,7 +23,7 @@ class BurgerBuilder extends Component {
     // }
     state = {
         ingredients: null,
-        totalPrice: 40,
+        totalPrice: 20,
         purchasable: false,
         purchasing: false,
         loading: false,
@@ -32,7 +32,7 @@ class BurgerBuilder extends Component {
 
     componentDidMount () {
         console.log(this.props);
-        axios.get( 'https://react-my-burger-65a22-default-rtdb.firebaseio.com/ingredients.json' )
+        axios.get( '/ingredients.json' )
             .then( response => {
                 this.setState( { ingredients: response.data } );
             } )
@@ -93,7 +93,7 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         // alert('You continue!');
-
+        
         const queryParams = [];
         for (let i in this.state.ingredients) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
